@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>基于知识图谱的《红楼梦》人物关系可视化及问答系统</title>
+    <title>京吹角色知识图谱及问答系统</title>
 
     <!--Bootstrap Stylesheet [ REQUIRED ]-->
     <link href="../static/css/bootstrap.min.css" rel="stylesheet">
@@ -73,7 +73,7 @@
                     <a href="{{ url_for('index') }}" class="navbar-brand">
                         <img src="../static/images/logo.jpg" alt="Nifty Logo" class="brand-icon">
                         <div class="brand-title">
-                            <span class="brand-text">林智敏毕设</span>
+                            <span class="brand-text">京阿尼同萌会</span>
                         </div>
                     </a>
                 </div>
@@ -96,7 +96,7 @@
                         
                     </ul>
                     <ul class="nav navbar-top-links pull-left">
-                        <h4>基于知识图谱的《红楼梦》人物关系可视化及问答系统</h4>
+                        <h4>京吹角色知识图谱及问答系统</h4>
                        
 
 
@@ -129,7 +129,7 @@
               <div class="row">
                 <div class="col-lg-6">
                     <div class="input-group">
-                        <input type="text" id="search"class="form-control input-lg"  placeholder="请输入你的问题(eg.贾宝玉的爸爸是谁？)">
+                        <input type="text" id="search"class="form-control input-lg"  placeholder="请输入你的问题(eg.黄前久美子的姬友是谁？)">
                         <span class="input-group-addon btn btn-primary" onclick="search()">搜索</span>
                     
                     </div>
@@ -158,7 +158,7 @@
                             option = {
                                 // backgroundColor: "white",
                                 title: {
-                                    // text: '红楼梦人物关系图',
+                                    // text: '京吹人物关系图',
                                     textStyle: {
                                         // color: "white",
                                         fontWeight: "lighter",
@@ -169,7 +169,7 @@
                                 legend: {
                                     x: "center",
                                     show: true,
-                                    data: ["贾家荣国府", "贾家宁国府", "王家", "史家", "薛家", "其他", "林家"]
+                                    data: ["小号声部", "萨克斯声部", "低音声部","单簧管声部", "巴松（大管）&双簧管声部", "长笛&短笛声部","圆号声部", "长号声部", "打击乐声部", "顾问", "其他"]
                                 },
                                 series: [
                                     {
@@ -195,21 +195,21 @@
                                         draggable: true,
                                         roam: true,
                                         categories: [{
-                                            name: '贾家荣国府',
+                                            name: '小号声部',
                                             // itemStyle: {
                                             //     normal: {
                                             //         color: "#009800",
                                             //     }
                                             // }
                                         }, {
-                                            name: '贾家宁国府',
+                                            name: '萨克斯声部',
                                             // itemStyle: {
                                             //     normal: {
                                             //         color: "#4592FF",
                                             //     }
                                             // }
                                         }, {
-                                            name: '王家',
+                                            name: '低音声部',
                                             // itemStyle: {
                                             //     normal: {
                                             //         color: "#3592F",
@@ -217,14 +217,21 @@
                                             // }
                                         },
                                         {
-                                            name: '史家',
+                                             name: '单簧管声部',
                                         }, {
-                                            name: '薛家',
+                                             name: '巴松（大管）&双簧管声部',
                                         }, {
-                                            name: '其他',
-                                        },
-                                        {
-                                            name: '林家',
+                                             name: '长笛&短笛声部',
+                                        }, {
+                                             name: '圆号声部',
+                                        }, {
+                                             name: '长号声部',
+                                        }, {
+                                             name: '打击乐声部',
+                                        }, {
+                                             name: '顾问',
+                                        }, {
+                                             name: '其他',
                                         }
                                         ],
                                         label: {
@@ -362,7 +369,7 @@
                                         <a href="{{ url_for('get_all_relation') }}">
                                             <i class="fa fa-pie-chart" style="width:24px"></i>
                                             <span class="menu-title">
-                                                <strong>红楼梦人物关系全貌</strong>
+                                                <strong>京吹人物关系全貌</strong>
                                             </span>
                                             
                                         </a>
@@ -409,7 +416,7 @@
         <!--===================================================-->
         <footer id="footer">
 
-           <p class="pad-lft">Copyright&#0169; 2018 林智敏  &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;All Rights Reserved </p>
+           <p class="pad-lft">Copyright&#0169; 2026 京阿尼同萌会  &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;All Rights Reserved </p>
 
         </footer>
         <!--===================================================-->

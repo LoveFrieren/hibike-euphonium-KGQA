@@ -1,60 +1,59 @@
-# KGQA_HLM
-基于知识图谱的《红楼梦》人物关系可视化及问答系统
+# 项目说明：基于 LTP v4.2.0 与 Neo4j 的《吹响！上低音号》人物关系知识图谱系统
 
-[![Project](https://img.shields.io/badge/project-KGQA_HLM-orange.svg)](https://github.com/chizhu/KGQA_HLM)
-[![Python version](https://img.shields.io/badge/language-python3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-[![Issues](https://img.shields.io/github/issues/chizhu/KGQA_HLM.svg)](https://github.com/chizhu/KGQA_HLM/issues)
-[![Lisence](https://img.shields.io/badge/lisence-MIT-pink.svg)](https://github.com/chizhu/KGQA_HLM)
-[![Lisence](https://img.shields.io/badge/lisence-Anti996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+## 📦 项目简介
+本项目是在开源项目 **[chizhu/KGQA_HLM](https://github.com/chizhu/KGQA_HLM)**（基于知识图谱的《红楼梦》人物关系可视化及问答系统）的基础上进行改造与数据迁移的成果。
 
+原项目主要面向古典文学《红楼梦》，而本次改造将其核心架构应用于动漫作品 **《吹响！上低音号》**（Sousou no Frieren / 京吹）。通过重新构建知识图谱、引入 **LTP v4.2.0** 自然语言处理模型及自定义词典机制，并整合了绝大多数角色的详细关系与角色介绍，成功实现了一个针对“京吹”粉丝的交互式人物关系可视化及智能问答系统。
 
-* ~~详情请见 [http://chizhunlp.com](http://111.230.92.110/)~~
+## 🚀 核心改造内容
 
-文件树:<br>
-1)  app.py是整个系统的主入口<br>
-2)  templates文件夹是HTML的页面<br>
-     |-index.html 欢迎界面<br> 
-     |-search.html 搜索人物关系页面<br>
-     |-all_relation.html 所有人物关系页面<br>
-     |-KGQA.html 人物关系问答页面<br>
-3)  static文件夹存放css和js，是页面的样式和效果的文件<br>
-4)  raw_data文件夹是存在数据处理后的三元组文件<br>
-5)  neo_db文件夹是知识图谱构建模块<br>
-     |-config.py 配置参数<br>
-     |-create_graph.py 创建知识图谱，图数据库的建立<br>
-     |-query_graph.py 知识图谱的查询<br>
-6)  KGQA文件夹是问答系统模块<br>
-     |-ltp.py 分词、词性标注、命名实体识别<br>
-7)  spider文件夹是爬虫模块<br>
-     |- get_*.py 是之前爬取人物资料的代码，已经产生好images和json 可以不用再执行<br>
-     |-show_profile.py 是调用人物资料和图谱展示在前端的代码
-<hr>
+### 1. 数据源重构
+- **原项目**：基于《红楼梦》文本挖掘或预设关系构建图谱。
+- **本项目**：
+    - 汇总了《吹响！上低音号》中绝大多数人物（包括北宇治高中吹奏乐部、其他学校及关联角色）的复杂人际关系。
+    - 构建了包含 **10+ 种声部分类**（如小号、萨克斯、低音等）、**多种关系类型**（好友、学姐学妹、暗恋对象、青梅竹马、老师/顾问等）的结构化数据文件 `relation.txt`。
+    - 引入了 **LTP (v4.2.0)** 自然语言处理模型，支持通过自定义词典（`custom_dict.txt`）精准识别角色名及特殊关系词（如“姬友”、“大号君同盟”），解决了传统图谱问答中实体提取不准的问题。
 
-部署步骤：<br>
-* 0.安装所需的库 执行pip install -r requirement.txt<br>
-* 1.先下载好neo4j图数据库，并配好环境（注意neo4j需要jdk8）。修改neo_db目录下的配置文件config.py,设置图数据库的账号和密码。<br>
-* 2.切换到neo_db目录下，执行python  create_graph.py 建立知识图谱<br>
-* 3.去 [这里](http://pyltp.readthedocs.io/zh_CN/latest/api.html#id2) 下载好ltp模型。[ltp简介](http://ltp.ai/)<br>
-* 4.在KGQA目录下，修改ltp.py里的ltp模型文件的存放目录<br>
-* 5.运行python app.py,浏览器打开localhost:5000即可查看<br>
+### 2. 功能增强
+- **多跳推理能力**：系统不仅支持直接查询"A是谁”，还支持复杂的多层关系推理，例如：“黄前久美子的姬友的学姐是谁？”（自动拆解为 `A -> 姬友 -> B` 和 `B -> 学姐 -> C`）。
+- **可视化交互**：保留了原项目的 ECharts 关系图展示能力，支持动态加载角色头像（Base64 编码），提供直观的人物网络视图。
+- **智能问答 (KGQA)**：结合 NLP 分词与图谱查询，实现了自然语言到 Cypher 语句的动态转换，用户可直接输入句子获取答案。
 
-系统整体流程图：
+### 3. 技术栈优化
+- **后端**：Flask + Neo4j (图数据库) + LTP v4.2.0 (NLP)。
+- **前端**：HTML/JS + ECharts（支持动态渲染关系网络）。
+    - *注*：项目依赖 `transformers` 库的广泛生态，当前环境已预装包括 `mobilebert`, `mistral`, `mm_grounding_dino` 等多种模型架构（见 `.venv` 目录），虽核心逻辑主要调用 LTP，但保留了扩展性。
+- **数据格式**：采用 CSV/Text 格式的 `relation.txt` 便于扩展和维护。
 
-![流程](https://github.com/chizhu/KGQA_HLM/blob/master/%E5%9B%BE%E7%89%87%201.png)
+## 📂 项目结构概览
+```text
+京吹知识图谱/
+├── app.py                 # Flask 主入口，路由定义
+├── query_graph.py         # 核心逻辑：NLP 分词 + Cypher 语句生成 + 多跳查询
+├── ltp_processor.py       # LTP v4.2.0 模型加载与实体提取（含自定义词典支持）
+├── config.py              # Neo4j 连接配置、关系映射字典 (similar_words)
+├── creat_graph.py         # 图谱初始化脚本（读取 relation.txt 导入 Neo4j）
+├── raw_data/
+│   └── relation.txt       # 《京吹》全量人物关系数据源
+├── custom_dict.txt        # NLP 自定义词典（角色名、特殊称谓）
+├── spider/images/         # 角色头像资源目录
+├── templates/             # 前端 HTML 模板 (index.html, KGQA.html 等)
+└── static/                # 静态资源 (JS/CSS)
+```
 
-网站示例:<br>
-欢迎界面
+## 🎯 适用场景
+- **粉丝社区**：快速查询角色间的复杂关系链（如“谁暗恋了 XX？”、“XX 的所有学姐是谁”）。
+- **数据分析**：可视化展示北宇治高中吹奏乐部的组织架构与人际网络。
+- **二次开发**：基于 `KGQA_HLM` 的成熟架构，可轻松替换为其他动漫、小说或游戏的人物关系系统。
 
-![欢迎界面](https://github.com/chizhu/KGQA_HLM/blob/master/1.png)
+## 📄 快速开始
+1. **环境准备**：安装 Python 依赖库（Flask, py2neo, ltp==4.2.0 等）。
+   - *可选*：若需利用 `transformers` 生态中的其他模型能力，可参考 `.venv` 中已预装的丰富模型列表。
+2. **数据导入**：运行 `python creat_graph.py` 将 `relation.txt` 加载至 Neo4j。
+3. **启动服务**：运行 `python app.py` 并在浏览器访问 `http://localhost:5000`。
 
-主界面
+---
+*特别感谢原项目作者 chizhu 提供的优秀架构基础，以及所有参与《吹响！上低音号》数据整理的贡献者。*
 
-![界面](https://github.com/chizhu/KGQA_HLM/blob/master/2.png)
-
-![界面](https://github.com/chizhu/KGQA_HLM/blob/master/3.png)
-
-![界面](https://github.com/chizhu/KGQA_HLM/blob/master/4.png)
-
-![界面](https://github.com/chizhu/KGQA_HLM/blob/master/5.png)
-
-![界面](https://github.com/chizhu/KGQA_HLM/blob/master/6.png)
+## 📚 资源与参考
+- **LTP 官方下载**：哈工大社会计算与信息检索研究中心研发的语言技术平台（Language Technology Platform | LTP），[https://ltp.ai/index.html](https://ltp.ai/index.html)
