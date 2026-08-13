@@ -22,7 +22,6 @@
 ### 3. 技术栈优化
 - **后端**：Flask + Neo4j (图数据库) + LTP v4.2.0 (NLP)。
 - **前端**：HTML/JS + ECharts（支持动态渲染关系网络）。
-    - *注*：项目依赖 `transformers` 库的广泛生态，当前环境已预装包括 `mobilebert`, `mistral`, `mm_grounding_dino` 等多种模型架构（见 `.venv` 目录），虽核心逻辑主要调用 LTP，但保留了扩展性。
 - **数据格式**：采用 CSV/Text 格式的 `relation.txt` 便于扩展和维护。
 
 ## 📂 项目结构概览
@@ -48,7 +47,6 @@
 
 ## 📄 快速开始
 1. **环境准备**：安装 Python 依赖库（Flask, py2neo, ltp==4.2.0 等）。
-   - *可选*：若需利用 `transformers` 生态中的其他模型能力，可参考 `.venv` 中已预装的丰富模型列表。
 2. **数据导入**：运行 `python creat_graph.py` 将 `relation.txt` 加载至 Neo4j。
 3. **启动服务**：运行 `python app.py` 并在浏览器访问 `http://localhost:5000`。
 
