@@ -2,7 +2,7 @@ from py2neo import Graph
 graph = Graph(
     "http://localhost:7474",
     user="neo4j",
-    password="123456",
+    password="",
     name="neo4j"
 )
 CA_LIST = {"小号声部":0,"萨克斯声部":1,"低音声部":2,"单簧管声部":3,"巴松（大管）&双簧管声部":4,"长笛&短笛声部":5,"圆号声部":6,"长号声部":7,"打击乐声部":8,"顾问":9,"其他":10}
